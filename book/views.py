@@ -9,12 +9,20 @@ data={
     "deneme":"deneme kategorisine ait kitaplar",
     "siir":"siir kategorisine ait kitaplar",
 }
+def index(request):
+    return render(request,'books/index.html')
 
 def books(request):
-    return HttpResponse('Kitaplar')
+    list_item=''
+    category_list =list(data.keys())
+    for category in category_list:
+        redirect_url=reverse("books_by_category",args=[category])
+        list_item += f"<li><a href='{redirect_url}'>{category}</a></li>"
+        html = f"<h1>Kitap Listesi</h1><br><ul>{list_item}</ul> "
+    return HttpResponse(html)
 
 def details(request,book_name):
-    return HttpResponse(f"{book_name}Detay Sayfası")
+    return HttpResponse(f"{book_name} detay sayfası")
 
 def getbooksByCategoryName(request,category_name):
     try:
