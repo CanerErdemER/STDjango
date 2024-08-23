@@ -1,5 +1,8 @@
 <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action">Hikaye</a>
-    <a href="#" class="list-group-item list-group-item-action">Roman</a>
-    <a href="#" class="list-group-item list-group-item-action">Şiir</a>
+    {% for item in categories %}
+         <a href="{% url 'books_by_category' item.slug %}" class="list-group-item list-group-item-action">
+            {{ item.name |title}}
+        </a>
+         <!-- urlden aldıgımız name adresiyledaha önce tanımladıgımız değişken adrese yönlendirme yaptık -->
+    {% endfor %}        
 </div>

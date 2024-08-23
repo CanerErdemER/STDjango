@@ -1,0 +1,25 @@
+{% load static  %}
+<div class="card mb-3">
+    <div class="row">
+        <div class="col-4">
+            <img class="img-fluid rounded-start" src="{% static 'books/img/'|add:item.image %}" alt="{{ item.title }}">
+        </div>
+        <div class="col-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.writer }}</p>
+                <p class="card-text">{{ item.description| truncatechars:120 }}</p>
+                <span>{% if item.isupdated %}
+                    <span class="badge bg-success">Güncellendi</span>
+                {% endif %}
+                </span>
+                <p> {% if item.stock > 0 %}
+                    {{ item.stock }}
+                    {% else %}
+                   <div class="text-danger">Stokta Yok</div> 
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
