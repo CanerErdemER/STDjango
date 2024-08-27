@@ -1,6 +1,7 @@
-from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from . models import books,Category
 
 # Create your views here.
 data={
@@ -59,19 +60,25 @@ db={
 
 
 def index(request):
-    books=[]
-    categorys=db["categories"]
-    for item in db["books"]:
-        if item["isActive"] == True:
-            books.append(item)
-      
+    book_S=books.objects.all()
+    categorys=Category.objects.all()
     return render (request,'books/index.html',{
         'categories':categorys,
-        'books':books,
+            'books':book_S,
     })
 
-def details(request,book_name):
-    return HttpResponse(f"{book_name} detay sayfası")
+def details(request,book_id):
+    # try:
+    #     book = books.objects.get(pk=book_id)
+    # except:
+    #     raise Http404()
+    
+    book=get_object_or_404(books,pk=book_id)
+    ctx={
+        'book':book
+    }
+    return render(request,'books/details.html',ctx)
+
 
 def getbooksByCategoryName(request,category_name):
     try:

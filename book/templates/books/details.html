@@ -1,0 +1,28 @@
+{% load static %}
+
+
+{% block title %}
+{{ books.title }}
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-3">
+            <img class="img-fluid rounded" src="{{ book.image.url }}" alt="{{ book.title }}">
+        </div>
+        <!-- content -->
+        <div class="col-9">
+            <!-- buradaki book item olarak kullanıldı,books ise db deki verilerin aldıgı isim -->
+             <h1 class="h3">{{ book.title }}</h1>
+             <p>{{ book.description }}</p>
+
+            {% include 'books/partials/_book_s.html' %}
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
